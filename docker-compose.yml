@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=starport
+      - POSTGRES_DB=starport
+      - POSTGRES_PASSWORD=DevPwd1!
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  cache:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 60 1 --loglevel warning --requirepass "DevPwd1!"
+    volumes:
+      - cache:/data
+
+volumes:
+  cache:
+    driver: local
+  db:
+    driver: local
