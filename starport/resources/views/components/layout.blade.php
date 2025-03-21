@@ -13,6 +13,20 @@
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const theme = localStorage.getItem("theme") || (prefersDark ? "dark" : "light");
+
+            document.cookie = "theme=" + theme + "; path=/"; // Store theme in cookie
+
+            if (theme === "dark") {
+                document.documentElement.classList.add("dark");
+            }
+        });
+    </script>
+
 </head>
 
 <body>
@@ -25,10 +39,7 @@
         <div class="drawer-side">
             <label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
             <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-                <!--
-                <li><a>Sidebar Item 1</a></li>
-                <li><a>Sidebar Item 2</a></li>
-                -->
+                <li><a href="/skills">Skills</a></li>
             </ul>
         </div>
     </div>
